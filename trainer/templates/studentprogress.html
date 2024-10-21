@@ -1,0 +1,91 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div class="progress-container">
+    <h2>Student Progress for Trainer: {{ trainer.user.username }}</h2>
+    <br>
+    <br>
+    
+    {% if student_progress_list %}
+        {% for student_data in student_progress_list %}
+        <div class="student-progress">
+            <h3>{{ student_data.student.username }} - {{ student_data.course.name }}</h3>
+            <div class="progress-wrapper">
+                <svg width="400" height="400" viewBox="0 0 400 400" class="progress-circle">
+                    <!-- Background Circle -->
+                    <circle cx="200" cy="200" r="180" fill="none" stroke="#f3f3f3" stroke-width="30"></circle>
+                    <!-- Foreground Circle (progress) -->
+                    <circle id="progress-bar-{{ student_data.student.id }}" cx="200" cy="200" r="180" fill="none" stroke="#28a745" stroke-width="30" stroke-dasharray="1130" stroke-dashoffset="1130"></circle>
+                </svg>
+                <div class="progress-text">
+                    <span id="progress-percentage-{{ student_data.student.id }}">{{ student_data.progress_percentage|floatformat:0 }}%</span>
+                </div>
+                <p>{{ student_data.student.username }} has completed {{ student_data.progress_percentage|floatformat:0 }}% of the course {{ student_data.course.name }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No student progress data available.</p>
+    {% endif %}
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .progress-container {
+        margin-left: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .progress-wrapper {
+        width: 400px; /* Increased width */
+        height: 400px; /* Increased height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        flex-direction: column; /* Stack the circle and text vertically */
+    }
+
+    .progress-text {
+        margin-top: 20px; /* Add space between the circle and text */
+        font-size: 30px; /* Larger font size for the percentage */
+        font-weight: bold;
+        color: black;
+    }
+
+    svg {
+        transform: rotate(-90deg); /* Rotate to start from the top */
+    }
+
+    .student-progress {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    #progress-bar {
+        transition: stroke-dashoffset 1s ease;
+        stroke-linecap: round;
+    }
+</style>
+
+<!-- JavaScript to update the progress circle -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const studentProgressElements = document.querySelectorAll('.student-progress');
+
+        studentProgressElements.forEach(function(element) {
+            const studentId = element.querySelector('span[id^="progress-percentage-"]').getAttribute('id').split('-')[2];
+            const progressPercentage = parseInt(element.querySelector(`#progress-percentage-${studentId}`).innerText);
+
+            const progressBar = document.getElementById(`progress-bar-${studentId}`);
+            const dashoffset = 1130 - (1130 * progressPercentage / 100); // Adjust for larger circle
+            progressBar.style.strokeDashoffset = dashoffset;
+        });
+    });
+</script>
+
+{% endblock %}

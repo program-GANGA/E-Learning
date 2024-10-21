@@ -1,0 +1,64 @@
+{% extends 'base3.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Student Progress</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Course Name</th>
+            <th>Trainer Name</th>
+            <th>Progress (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for progress in student_progress %}
+        <tr>
+            <td>{{ progress.student_name }}</td>
+            <td>{{ progress.course_name }}</td>
+            <td>{{ progress.trainer_name }}</td>
+            <td>{{ progress.progress_percentage }}%</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
+{% endblock %}

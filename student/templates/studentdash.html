@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    
+    <style>
+        /* Main Content Styling */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            height: 100vh; /* Full height to match sidebar */
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .header .user-info {
+            font-size: 18px;
+            color: #2980b9;
+            font-weight: bold;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            width: calc(33% - 20px);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .feature-card a:hover {
+            background-color: #21618c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feature-card {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="header">
+            <h1>Student Dashboard</h1>
+            <div class="user-info">
+                Welcome, {{ username }}!
+            </div>
+        </div>
+
+        <div class="features-container">
+            <!-- View Enrolled Courses Card -->
+            <div class="feature-card">
+                <h3>View Profile</h3>
+                <p>Check your personal information and account settings.</p>
+                <a href="{% url 'profile' %}">View Profile</a>
+            </div>
+            
+            <div class="feature-card">
+                <h3>View Trainer Details</h3>
+                <p>Access information about your assigned trainers and their contact details.</p>
+                <a href="{% url 'trainer_details' %}">View Trainer Details</a>
+            </div>
+            <!-- Access Course Materials Card -->
+            <div class="feature-card">
+                <h3>Access Course Materials</h3>
+                <p>view materials related to your courses.</p>
+                <a href="{% url 'Uploaded_Videos' %}">Access Materials</a>
+            </div>
+
+            <!-- View Progress Card -->
+            <div class="feature-card">
+                <h3>View Progress</h3>
+                <p>Track your progress and performance in your courses.</p>
+                <a href="{% url 'progress_view' %}">View Progress</a>
+            </div>
+
+            <!-- Submit Feedback Card -->
+            <div class="feature-card">
+                <h3>Submit Feedback</h3>
+                <p>Provide feedback about your courses and trainers.</p>
+                <a href="{% url 'feedback' %}">Submit Feedback</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

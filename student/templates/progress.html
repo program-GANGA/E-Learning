@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="progress-container">
+    <div class="progress-wrapper">
+        <svg width="200" height="200" viewBox="0 0 200 200" class="progress-circle">
+            <!-- Background Circle -->
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#f3f3f3" stroke-width="15"></circle>
+            <!-- Foreground Circle (progress) -->
+            <circle id="progress-bar" cx="100" cy="100" r="90" fill="none" stroke="#28a745" stroke-width="15" stroke-dasharray="565" stroke-dashoffset="565"></circle>
+        </svg>
+        <div class="progress-text">
+            <span id="progress-percentage">{{ progress_percentage|floatformat:0 }}%</span>
+        </div>  
+    </div>
+    <div class="congratulations-text">
+        <h2 class="congratulations-heading">Congratulations, {{ request.user.username }}!</h2>
+        <p>You have completed {{ progress_percentage|floatformat:0 }}% of your course.</p>
+    </div>
+</div>
+
+<!-- Custom CSS for progress circle and text -->
+<style>
+    .progress-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin-left: 450px; /* Adjust as needed */
+    }
+
+    .progress-wrapper {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .progress-text {
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .congratulations-text {
+        text-align: center;
+        color: black;
+    }
+
+    .congratulations-heading {
+        text-align: center;
+        color: black; /* Ensure the color is black */
+        margin-bottom: 20px; /* Add some space below the heading */
+    }
+
+    .congratulations-text p {
+        font-size: 18px;
+        color: #333;
+    }
+
+    svg {
+        transform: rotate(-90deg); /* Rotates the progress circle to start at the top */
+    }
+
+    #progress-bar {
+        transition: stroke-dashoffset 1s ease;
+        stroke-linecap: round; /* Makes the stroke edge rounded */
+    }
+</style>
+
+<!-- JavaScript to update the progress circle based on percentage -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var progressPercentage = parseInt("{{ progress_percentage|default:0|floatformat:0 }}");
+        
+        // Calculate the dashoffset based on the percentage
+        var progressBar = document.getElementById('progress-bar');
+        var dashoffset = 565 - (565 * progressPercentage / 100); // 565 is the circumference of the circle (2 * Math.PI * radius)
+        progressBar.style.strokeDashoffset = dashoffset;
+
+        // Update the text inside the circle
+        document.getElementById('progress-percentage').innerText = progressPercentage + '%';
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('static/home.jpg');
+            background-size: cover; 
+            background-position: center; 
+            color: #333; 
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .container {
+            text-align: center;
+            padding: 100px 20px; 
+            background-color: rgba(61, 59, 59, 0.7); 
+            max-width: 800px;
+            border-radius: 8px;
+            margin-left: 300px;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6; /* Improve line spacing */
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: wheat;
+            color: rgb(14, 1, 1); /* White text */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 5px; /* Spacing between buttons */
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Introduction about the e-learning platform -->
+        <h2>LEARNSPHERE:Your Gateway to Knowledge</h2>
+        <p>
+            LearnSphere is an all-in-one e-learning platform designed to provide high-quality education to everyone, anywhere.
+            Access video lectures, track your progress, and engage with top-tier instructors from around the globe.
+            Whether you are learning from the comfort of your home or on the go, we have you covered.
+        </p>
+
+        <!-- Register and Login Buttons -->
+        <a href="{% url 'register' %}" class="button">Register Now</a>
+        <a href="{% url 'login' %}" class="button">Login</a>
+    </div>
+
+
+</body>
+
+</html>

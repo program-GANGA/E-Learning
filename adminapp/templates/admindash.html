@@ -1,0 +1,139 @@
+{% extends 'base3.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Home</title>
+    <style>
+        
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .header .user-info {
+            font-size: 18px;
+            color: #2980b9;
+            font-weight: bold;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            width: calc(33% - 20px);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .feature-card a:hover {
+            background-color: #21618c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feature-card {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <!-- Feature Cards -->
+        <div class="features-container">
+            <div class="feature-card">
+                <h3>Add New Course</h3>
+                <p>Add a new course to the system by clicking here.</p>
+                <a href="{% url 'add_course' %}">Click Here</a>
+            </div>
+
+            <div class="feature-card">
+                <h3>Add New Trainer</h3>
+                <p>Register a new trainer to the system by clicking here.</p>
+                <a href="{% url 'add_trainer' %}">Click Here</a>
+            </div>
+
+            <div class="feature-card">
+                <h3>View Progress</h3>
+                <p>Check student progress and course analytics here.</p>
+                <a href="{% url 'admin_progressview' %}">Click Here</a>
+            </div>
+            <div class="feature-card">
+                <h3>View FeedBacks</h3>
+                <p>Check student feedbacks about the course and trainer.</p>
+                <a href="{% url 'admin_feedbackview' %}">Click Here</a>
+            </div>
+            <div class="feature-card">
+                <h3>View Rating</h3>
+                <p>View the rating of trainer given by students by clicking here.</p>
+                <a href="{% url 'trainer_rating' %}">Click Here</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+{% endblock %}

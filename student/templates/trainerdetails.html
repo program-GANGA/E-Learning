@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* General container */
+        .dashboard-container {
+            background-color: #f0f4f8;
+            padding: 100px;
+            margin-left: 300px;
+            margin-top: 30px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 70px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Display trainer details without labels */
+        .trainer-info-value {
+            font-size: 22px;
+            color: #34495e;
+            margin: 10px 0;
+        }
+
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 40px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #f39c12;
+        }
+
+        /* Submit button styling */
+        .btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Your Trainer Details</h2>
+        <div class="card">
+            {% if trainer %}
+                <div class="trainer-info-value">{{ trainer.user.username }}</div>
+                <div class="trainer-info-value">{{ trainer.email }}</div>
+                <div class="trainer-info-value">{{ trainer.phone }}</div>
+                <div class="trainer-info-value">{{ trainer.skype_id }}</div>
+                <div class="trainer-info-value">{{ trainer.whatsapp_number }}</div>
+            {% else %}
+                <p>No trainer assigned yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Rating Section -->
+        {% if has_rated %}
+            <p>You have rated this trainer with {{ rating.rating }} stars.</p>
+        {% else %}
+            <div class="rating">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="radio" id="star5" name="rating" value="5" />
+                    <label for="star5" title="5 stars">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4" title="4 stars">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3" title="3 stars">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2" title="2 stars">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1" title="1 star">&#9733;</label>
+                    <button type="submit" class="btn">Rate Trainer</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+{% endblock %}

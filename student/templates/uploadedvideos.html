@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="video-wrapper">
+    <!-- Previous Arrow Button -->
+    {% if previous_video %}
+        <a href="{% url 'Uploaded_Videos' %}?video_id={{ previous_video.id }}" class="btn-nav prev-btn">
+            &#9664; <!-- Left arrow symbol -->
+        </a>
+    {% endif %}
+
+    <!-- Video Content in the center -->
+    <div class="video-container">
+        <h2>{{ current_video.title }}</h2>
+        <div class="video-player">
+            <video controls>
+                <source src="{{ current_video.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Rating section -->
+        <h3>Rate this video</h3>
+        <form method="post" style="text-align: center;">
+            {% csrf_token %}
+            <div class="star-rating">
+                {% for i in "54321" %}
+                    <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}" {% if current_rating|stringformat:"i" == i %}checked{% endif %}>
+                    <label for="star{{ i }}">★</label>
+                {% endfor %}
+            </div>
+            <br>
+            {% if current_rating == 0 %}
+                <button type="submit" class="submit-btn">Submit Rating</button>
+            {% else %}
+                <p>You have already rated this video.</p>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Next Arrow Button -->
+    <form method="post" action="{% url 'Uploaded_Videos' %}?video_id={{ next_video.id }}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="next_video"> <!-- Track Next button -->
+        <button type="submit" class="btn-nav next-btn">
+            &#9654; <!-- Right arrow symbol -->
+        </button>
+    </form>
+</div>
+
+<!-- Styling for the video page with arrow buttons -->
+<style>
+    /* General page styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .video-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        position: relative;
+        min-height: 80vh;
+    }
+
+    .video-container {
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .video-player {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    video {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styling for star rating */
+    .star-rating {
+        display: inline-block;
+        direction: rtl;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 2.5rem;
+        color: #ddd;
+        cursor: pointer;
+    }
+
+    .star-rating input:checked ~ label {
+        color: #f39c12;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #f39c12;
+    }
+
+    /* Styling for arrow navigation buttons */
+    .btn-nav {
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2.5rem;
+        color: #00050a;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .prev-btn {
+        left: 0; /* Positioned on the far left */
+    }
+
+    .next-btn {
+        right: 0; /* Positioned on the far right */
+    }
+
+    .btn-nav:hover {
+        color: #0056b3;
+    }
+
+    /* Styling for submit button */
+    .submit-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        margin-top: 15px;
+    }
+
+    .submit-btn:hover {
+        background-color: #218838;
+    }
+</style>
+{% endblock %}

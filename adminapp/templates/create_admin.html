@@ -1,0 +1,121 @@
+{% extends 'base3.html' %}
+
+{% block content %}
+<style>
+    /* body {
+        font-family: 'Arial', sans-serif;
+        background-color: #83899e;
+    } */
+
+    .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 50px auto;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #34495e;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+    }
+
+    button.btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button.btn:hover {
+        background-color: #2980b9;
+    }
+
+    /* Alert styles */
+    .alert {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        text-align: center;
+    }
+
+    .alert.success {
+        background-color: #2ecc71;
+    }
+
+    .alert.error {
+        background-color: #e74c3c;
+    }
+
+    .alert.info {
+        background-color: #3498db;
+    }
+
+    .alert.warning {
+        background-color: #f39c12;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Create Admin</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn">Create Admin</button>
+    </form>
+
+    <!-- Display messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

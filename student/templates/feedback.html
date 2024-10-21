@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="feedback-container">
+    <h2>Submit Your Feedback</h2>
+    <form method="post" class="feedback-form">
+        {% csrf_token %}
+        <textarea name="content" rows="5" placeholder="Write your feedback here..." required></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+
+    <h3>Your Previous Feedbacks</h3>
+    <ul class="feedback-list">
+        {% for feedback in feedbacks %}
+            <li>{{ feedback.content }} - <small>{{ feedback.created_at|date:"F j, Y, g:i a" }}</small></li>
+        {% empty %}
+            <li>No feedback submitted yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    .feedback-container {
+        margin-left: 300px;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        max-width: 700px; 
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .feedback-container h2, .feedback-container h3 {
+        color: #2980b9;
+        font-family: 'Arial', sans-serif;
+        margin-bottom: 20px;
+    }
+
+    /* Feedback Form Styling */
+    .feedback-form {
+        margin-bottom: 30px;
+    }
+
+    .feedback-form textarea {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        box-sizing: border-box; 
+    }
+
+    .feedback-form button {
+        display: inline-block;
+        background-color: #2980b9;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .feedback-form button:hover {
+        background-color: #21618c;
+    }
+
+    .feedback-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .feedback-list li {
+        background-color: #f9f9f9;
+        border-left: 5px solid #2980b9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    .feedback-list small {
+        color: #7f8c8d;
+        display: block;
+        margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .feedback-container {
+            padding: 20px;
+            margin: 20px;
+        }
+    }
+</style>
+{% endblock %}
